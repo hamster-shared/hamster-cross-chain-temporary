@@ -44,8 +44,6 @@ export class Web3Service implements OnModuleInit {
                     nonce: data,
                 }).on('transactionHash', function (hash) {
                     console.log('transactionHash:',hash)
-                }).on('confirmation', function (confirmationNumber, receipt) {
-                    console.log('confirmation:',confirmationNumber)
                 }).on('receipt', function (receipt) {
                     // receipt example
                     console.log("receipt:",receipt);
