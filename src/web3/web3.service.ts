@@ -36,21 +36,29 @@ export class Web3Service implements OnModuleInit {
   }
 
     async mint(address: string,amount: number): Promise<any> {
-      return new Promise(((resolve,reject) => {
-          this.http_contract.methods.mint(address, amount).send({
-              from: this.eth_address
-          }).on('transactionHash', function (hash) {
-              console.log('transactionHash:',hash)
-          }).on('confirmation', function (confirmationNumber, receipt) {
-              console.log('confirmation:',confirmationNumber)
-          }).on('receipt', function (receipt) {
-              // receipt example
-              console.log("receipt:",receipt);
-              resolve(reject)
-          }).on('error',function (error) {
-              reject(error)
-          })
-      }))
+        return new Promise(((resolve,reject) => {
+            this.http_web3.eth.getTransactionCount(this.eth_address).then(data => {
+                console.log("nonce:",data)
+                this.http_contract.methods.mint(address, amount).send({
+                    from: this.eth_address,
+                    nonce: data,
+                }).on('transactionHash', function (hash) {
+                    console.log('transactionHash:',hash)
+                }).on('confirmation', function (confirmationNumber, receipt) {
+                    console.log('confirmation:',confirmationNumber)
+                }).on('receipt', function (receipt) {
+                    // receipt example
+                    console.log("receipt:",receipt);
+                    resolve(reject)
+                }).on('error',function (error) {
+                    console.log('error:', error)
+                    reject(error)
+                })
+            }).catch(err => {
+                reject(err)
+            })
+
+        }))
     }
 
     onModuleInit(): any {
