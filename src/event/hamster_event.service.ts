@@ -34,6 +34,9 @@ export class Hamster_eventService  implements OnModuleInit    {
   }
 
   dealEvents(events ) {
+    if (!events){
+      return
+    }
     for (const record of events) {
       // Extract the phase, event and the event types
       const {event, phase} = record;
@@ -58,7 +61,7 @@ export class Hamster_eventService  implements OnModuleInit    {
       api.query.system.events((events) => {
         console.log(`\nReceived ${events.length} events:`);
 
-        // Loop through the Vec<EventRecord>
+        this.dealEvents(events)
 
       }).catch(err => {
         console.log("query err:", err)
@@ -69,13 +72,17 @@ export class Hamster_eventService  implements OnModuleInit    {
   }
 
   onModuleInit(): any {
-    this.watchHeader()
-        .then()
-        .catch(reason => {
-          console.log("watch event fail: ", reason)
-        })
-        .finally(() => {
-        })
+
+    this.watchEvent().then().catch(err => {
+      console.log(err)
+    })
+    // this.watchHeader()
+    //     .then()
+    //     .catch(reason => {
+    //       console.log("watch event fail: ", reason)
+    //     })
+    //     .finally(() => {
+    //     })
   }
 
 }

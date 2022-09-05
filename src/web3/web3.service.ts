@@ -61,11 +61,11 @@ export class Web3Service implements OnModuleInit {
 
     onModuleInit(): any {
 
-      this.mint("0x9F179dD7ba4252a90a37a33cB977578DC4Bb041a",100).then(() => {
-          console.log('mint success')
-      }).catch(err => {
-          console.log('mint err:', err)
-      })
+      // this.mint("0x9F179dD7ba4252a90a37a33cB977578DC4Bb041a",100).then(() => {
+      //     console.log('mint success')
+      // }).catch(err => {
+      //     console.log('mint err:', err)
+      // })
     }
 
 }

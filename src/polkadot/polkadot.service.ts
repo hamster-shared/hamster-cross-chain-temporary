@@ -14,7 +14,7 @@ export class PolkadotService  {
       const wsProvider = new WsProvider(this.config.get('hamster.endpoint'));
       this.api = await ApiPromise.create({ provider: wsProvider });
     }
-    return this.api;
+    return this.api.isReady;
   }
 
 
@@ -29,7 +29,6 @@ export class PolkadotService  {
         console.log(`Transaction finalized at blockHash ${result.status.asFinalized}`);
       }
     });
-
     return "success"
   }
 

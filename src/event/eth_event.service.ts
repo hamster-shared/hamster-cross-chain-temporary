@@ -31,7 +31,7 @@ export class Eth_eventService implements OnModuleInit  {
     }).on("connected", function(subscriptionId){
       console.log(subscriptionId);
     }).on('data', function(event){
-          console.log(event); // same results as the optional callback above
+          console.log("receive event:", event); // same results as the optional callback above
           const burner = event.returnValues.from
           const burnValue = event.returnValues.value
           const polkadotAddress = event.returnValues.polkadotAddress
